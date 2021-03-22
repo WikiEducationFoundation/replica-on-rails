@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.7.1'
 
 gem 'activerecord'
 gem 'mysql2'
+gem 'sinatra'

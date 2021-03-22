@@ -7,28 +7,25 @@ USERNAME = credentials['user']
 PASSWORD = credentials['password']
 
 class Replica
-  def new(database)
-    
-  end
-  
-  def open_connection
-    ActiveRecord.establish_connection(
-      adapter: 'mysql',
-      database: "enwiki_p",
-      encoding: 'utf8',
-      host: 'enwiki.analytics.db.svc.wikimedia.cloud',
+  def self.connect(database: 'enwiki')
+    ActiveRecord::Base.establish_connection(
+      adapter: 'mysql2',
+      database: "#{database}_p",
+      encoding: 'utf8mb4',
+      host: "#{database}.analytics.db.svc.wikimedia.cloud",
       username: USERNAME,
       password: PASSWORD
     )
   end
 
-  def close_connection
+  def self.close_connection
     ActiveRecord::Base.connection.close
   end
-
-  def query
-  end
 end
 
-class Article < ActiveRecord::Base
+class Page < ActiveRecord::Base
+  self.table_name = 'page'
+  self.primary_key = 'page_id'
 end
+
+

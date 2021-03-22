@@ -16,7 +16,19 @@ GEM
     i18n (1.8.9)
       concurrent-ruby (~> 1.0)
     minitest (5.14.4)
+    mustermann (1.1.1)
+      ruby2_keywords (~> 0.0.1)
     mysql2 (0.5.3)
+    rack (2.2.3)
+    rack-protection (2.1.0)
+      rack
+    ruby2_keywords (0.0.4)
+    sinatra (2.1.0)
+      mustermann (~> 1.0)
+      rack (~> 2.2)
+      rack-protection (= 2.1.0)
+      tilt (~> 2.0)
+    tilt (2.0.10)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
     zeitwerk (2.4.2)
@@ -27,9 +39,7 @@ PLATFORMS
 DEPENDENCIES
   activerecord
   mysql2
-
-RUBY VERSION
-   ruby 2.7.1p83
+  sinatra
 
 BUNDLED WITH
    2.1.4
