@@ -30,7 +30,7 @@ post '/:database/revisions.json' do
   result = Revision.where(actor: Actor.where(actor_name: post_params['usernames']))
                    .where(rev_timestamp: post_params['start']..post_params['end'])
                    .joins(:page, :actor)
-                   .pluck(:page_title, :page_namespace, :actor_name, :rev_page, :rev_timestamp)
+                   .select(:page_title, :page_namespace, :actor_name, :rev_page, :rev_timestamp)
   result.to_s
 end
 
