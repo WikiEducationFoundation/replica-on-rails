@@ -11,7 +11,7 @@ class Replica
     ActiveRecord::Base.establish_connection(
       adapter: 'mysql2',
       database: "#{database}_p",
-      encoding: 'utf8mb4',
+      encoding: 'utf8',
       host: "#{database}.analytics.db.svc.wikimedia.cloud",
       username: USERNAME,
       password: PASSWORD
@@ -26,6 +26,22 @@ end
 class Page < ActiveRecord::Base
   self.table_name = 'page'
   self.primary_key = 'page_id'
+
+  has_many :revisions, foreign_key: 'rev_page'
 end
 
+class Actor < ActiveRecord::Base
+  self.table_name = 'actor'
+  self.primary_key = 'actor_id'
+
+  has_many :revisions, foreign_key: 'rev_actor'
+end
+
+class Revision < ActiveRecord::Base
+  self.table_name = 'revision_userindex'
+  self.primary_key = 'rev_id'
+
+  belongs_to :page, foreign_key: 'rev_page'
+  belongs_to :actor, foreign_key: 'rev_actor'
+end
 
