@@ -19,7 +19,7 @@ get '/:database/:username/:start/:end/revisions.json' do
                 .revisions.joins(:page)
                 .where(rev_timestamp: params['start']..params['end'])
                 .pluck(:page_title, :page_namespace, :rev_page, :rev_timestamp)
-  result.to_json
+  result.to_s
 end
 
 post '/:database/revisions.json' do
@@ -31,7 +31,7 @@ post '/:database/revisions.json' do
                    .where(rev_timestamp: post_params['start']..post_params['end'])
                    .joins(:page, :actor)
                    .pluck(:page_title, :page_namespace, :actor_name, :rev_page, :rev_timestamp)
-  result.to_json
+  result.to_s
 end
 
 get '/:database/last_article.json' do
