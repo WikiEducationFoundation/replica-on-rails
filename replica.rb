@@ -16,6 +16,8 @@ class Replica
       username: USERNAME,
       password: PASSWORD
     )
+
+
   end
 
   def self.close_connection
@@ -28,6 +30,10 @@ class Page < ActiveRecord::Base
   self.primary_key = 'page_id'
 
   has_many :revisions, foreign_key: 'rev_page'
+
+  def page_title
+    self[:page_title].force_encoding('utf-8')
+  end
 end
 
 class Actor < ActiveRecord::Base
@@ -35,6 +41,10 @@ class Actor < ActiveRecord::Base
   self.primary_key = 'actor_id'
 
   has_many :revisions, foreign_key: 'rev_actor'
+
+  def actor_name
+    self[:actor_name].force_encoding('utf-8')
+  end
 end
 
 class Revision < ActiveRecord::Base
