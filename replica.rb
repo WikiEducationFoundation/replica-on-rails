@@ -49,7 +49,7 @@ class Revision < ActiveRecord::Base
   self.table_name = 'revision_userindex'
   self.primary_key = 'rev_id'
 
+  has_one :parent_revision, class_name: 'Revision', foreign_key: 'rev_parent_id'
   belongs_to :page, foreign_key: 'rev_page'
   belongs_to :actor, foreign_key: 'rev_actor'
 end
-

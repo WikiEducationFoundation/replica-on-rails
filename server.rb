@@ -27,10 +27,19 @@ post '/:database/revisions.json' do
   Replica.connect(database: params['database'])
   post_params = JSON.parse(request.body.read)
   puts post_params
+  sql = Revision.where(actor: Actor.where(actor_name: post_params['usernames']))
+                   .where(rev_timestamp: post_params['start']..post_params['end'])
+                   .joins(:page, :actor)
+                   .left_joins(:parent_revision)
+                   .select(:rev_page, :page_title, :page_namespace, :rev_id, :rev_timestamp, :actor_name, :actor_user, :rev_parent_id).to_sql
+
+  pp sql
   result = Revision.where(actor: Actor.where(actor_name: post_params['usernames']))
                    .where(rev_timestamp: post_params['start']..post_params['end'])
                    .joins(:page, :actor)
-                   .pluck(:rev_page, :page_title, :page_namespace, :rev_id, :rev_timestamp, :actor_name, :actor_user, :rev_parent_id)
+                   .left_joins(:parent_revision)
+                   .select(:rev_page, :page_title, :page_namespace, :rev_id, :rev_timestamp, :actor_name, :actor_user, :rev_parent_id)
+  pp result
   {
     'success' => true,
     'data' => result.map do |rev|
