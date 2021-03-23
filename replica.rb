@@ -16,8 +16,6 @@ class Replica
       username: USERNAME,
       password: PASSWORD
     )
-
-
   end
 
   def self.close_connection
